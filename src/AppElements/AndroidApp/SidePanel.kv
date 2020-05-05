@@ -1,0 +1,90 @@
+#:kivy 1.8.0
+
+<SidePanel>:
+    orientation: 'vertical'
+    spacing: 1
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'UserName'
+            font_size: '30sp'
+            size_hint: 1, 0.2
+
+        Button:
+            text:'Profile button'
+            on_press: app.auth()
+            size_hint: 1, 0.2
+            # ButtonBehavior: 
+                # source: 'C:/Work/Bachelor/KievVol/Data/images/user.png'
+                # size: 32, 32
+                # size_hint: (None,None)
+                # pos_hint: {"x":0.3, "top":0.7}
+
+    MenuItem:
+        text: 'newsWidget'
+        size_hint: 1, 1
+
+    MenuItem:
+        text: 'futureEvents'
+        size_hint: 1, 1
+
+    MenuItem:
+        text: 'eventCreatorWidget'
+        size_hint: 1, 1
+    
+
+    MenuItem:
+        text: 'feedbackWidget'
+        size_hint: 1, 1
+
+    MenuItem:
+        text: 'Exit'
+        size_hint: 1, 0.5
+    
+
+<NewsWidget>:
+    orientation: 'vertical'
+    spacing: 1
+
+    AppActionBar:
+        size_hint: (1., 0.1)
+    BoxLayout:
+        orientation:'vertical'
+        BoxLayout:
+            orientation:'vertical'
+            Label:
+                text: 'HELLPLP'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'HAUHI'
+
+<FutureEvents>:
+    orientation: 'vertical'
+    spacing: 1
+
+    AppActionBar:
+        size_hint: (1., 0.1)
+
+    Label:
+        text: 'TEXT'
+
+<EventCreatorWidget>:
+    orientation: 'vertical'
+    spacing: 1
+
+    AppActionBar:
+        size_hint: (1., 0.1)
+
+    Label:
+        text: 'CHiriku'
+
+<FeedbackWidget>:
+    orientation: 'vertical'
+    spacing: 1
+
+    AppActionBar:
+        size_hint: (1., 0.1)
+    Label:
+        text: 'HAYKA'
+

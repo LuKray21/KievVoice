@@ -1,0 +1,162 @@
+#:kivy 1.8.0
+
+<AuthWindow>:
+    orientation: 'vertical'
+    spacing: 1
+    BoxLayout:
+        size_hint: (1, 1)
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: (1, 1)
+            id: 'authLabel'
+            orientation: 'horizontal'
+            padding: [0,0,0,0]
+            Label:
+                size_hint: (1,1)
+                text: 'Авторизація'
+                font_size: '30sp'
+        BoxLayout:
+            size_hint: (1, 1)
+            orientation: 'vertical'
+            color: 'red'
+            padding: [0,0,20,0]
+            # spacing: 15
+            BoxLayout:
+                size_hint: (1, 1)
+                id: 'loginLine'
+                orientation:'horizontal'
+                Label:
+                    size_hint: (.4, .4)
+                    text: 'Логін:'
+                    font_size: '20sp'
+
+                TextInput:
+                    id: login
+                    size_hint: (1, .4)
+                    text: 'Ваш логін'
+                    font_size: '25sp'
+
+            BoxLayout:
+                size_hint: (1, 1)
+                id: 'passwordLine'
+                orientation:'horizontal'
+                Label:
+                    size_hint: (.4, .4)
+                    text: "Пароль:"
+                    font_size: '20sp'
+                TextInput:
+                    id: password
+                    size_hint: (1, .4)
+                    password: 'True'
+                    font_size: '25sp'
+                    # height: self.minimum_height
+
+        BoxLayout:
+            size_hint: (1, 1)
+            orientation: 'horizontal'
+            spacing: 4
+            padding: [2, 1, 2, 1]
+            Button:
+                size_hint: (.4, .4)
+                text:'Увійти'
+                on_press: app.authController.tryToAuthorize(login.text, password.text)
+                on_press: 
+            Button:
+                size_hint: (.4, .4)
+                text:'Зарееструватись'
+                on_press: app.authController.setRegistrationWindow()
+
+
+<RegistrationWindow>:
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: (1,1)
+        BoxLayout:
+            orientation:'vertical'
+            size_hint: (1, .1)
+            Label:
+                size_hint: (1, 1)
+                text: 'Реестрація'
+                font_size: '30sp'
+        BoxLayout:
+            orientation:'vertical'
+            size_hint: (1, 1)
+            padding: [0, 0,20,15]
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,1)
+                Label: 
+                    size_hint: (.4, .6)
+                    text: 'Логін'
+                TextInput:
+                    id: login
+                    size_hint: (1, .6)
+                    font_size: '25sp'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,1)
+                Label: 
+                    size_hint: (.4, .6)
+                    text: 'Імя'
+                TextInput:
+                    size_hint: (1, .6)
+                    font_size: '25sp'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,1)
+                Label: 
+                    size_hint: (.4, .6)
+                    text: 'Фамілія'
+                TextInput:
+                    size_hint: (1, .6)
+                    font_size: '25sp'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,1)
+                Label: 
+                    size_hint: (.4, .6)
+                    text: 'Район'
+                TextInput:
+                    size_hint: (1, .6)
+                    font_size: '25sp'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,1)
+                Label: 
+                    size_hint: (.4, .6)
+                    text: 'Вік'
+                TextInput:
+                    size_hint: (1, .6)
+                    font_size: '25sp'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,1)
+                Label: 
+                    size_hint: (.4, .6)
+                    text: 'Пароль'
+                TextInput:
+                    id: password
+                    size_hint: (1, .6)
+                    font_size: '25sp'
+                    password: 'True'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,1)
+                Label: 
+                    size_hint: (.4, .6)
+                    text: 'Email'
+                TextInput:
+                    size_hint: (1, .6)
+                    font_size: '25sp'
+        BoxLayout:
+            spacing: 4
+            padding: [2, 15, 2, 1]
+            orientation: 'horizontal'
+            size_hint: (1,.2)
+            Button:
+                text: 'Назад'
+                on_press: app.authController.setAuthWindow()
+            Button:
+                text: 'Зарееструватись'
+                on_press: app.authController.tryToRegister(login.text, password.text)

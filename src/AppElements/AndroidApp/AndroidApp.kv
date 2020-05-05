@@ -1,0 +1,35 @@
+#:kivy 1.8.0
+
+<AppActionBar>:
+    pos_hint: {'top':1}
+    ActionView:
+        use_separator: True
+        ActionMenu:
+            title: '       VVKiev'
+            with_previous: False
+            app_icon: 'atlas://data/images/defaulttheme/splitter_grip'
+            on_press: self.menu()
+            
+        ActionOverflow:
+
+
+
+<MainPanel>:
+    orientation: 'vertical'
+    spacing: 1
+
+    AppActionBar:
+        size_hint: (1., 0.1)
+        
+    AppButton:
+        id: bottone
+        nome_bottone: bottone
+        text: 'AppExec'
+        on_press: self.app_pushed()
+        on_release: self.app_pushed()
+
+<AuthPanel>:
+    orientation: 'vertical'
+    spacing: 1
+
+
