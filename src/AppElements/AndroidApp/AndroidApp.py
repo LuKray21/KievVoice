@@ -20,11 +20,11 @@ __author__ = 'licia'
 and methods that actually implement the specific function and panels to be
 shown instead of the first main_panel
 '''
-SidePanel_AppMenu = {'newsWidget':['loadNewsWidget',None],
-                     'futureEvents':['loadFutureEvents',None],
-                     'eventCreatorWidget':['loadEventCreatorWidget',None],
-                     'feedbackWidget':['loadFeedbackWidget', None],
-                     'Exit':['exitApp',None]
+SidePanel_AppMenu = {'Новини':['loadNewsWidget',None],
+                     'Події':['loadFutureEvents',None],
+                     'Створити подію':['loadEventCreatorWidget',None],
+                     "Зворотній зв'язок":['loadFeedbackWidget', None],
+                     'Вихід':['exitApp',None]
                      }
 id_AppMenu_METHOD = 0
 id_AppMenu_PANEL = 1
@@ -45,8 +45,10 @@ from kivy.config import Config
 from kivy.core.window import Window
 from kivy.lang import Builder 
 
-from src.AuthWorker.AuthorizationController import AuthorizationController
-from src.SessionController.SessionController import SessionController
+from src.AuthWorker.AuthorizationWorker import AuthorizationWorker
+from src.AppElements.NewsWorker.NewsWorker import NewsWorker
+from src.AppElements.EventWorker.EventWorker import EventWorker
+from src.AppElements.FeedbackWorker.FeedbackWorker import FeedbackWorker
 
 Config.set('graphics', 'resizable', False)
 with open('C:\Work\Bachelor\KievVol\src\AppElements\AndroidApp\SidePanel.kv', encoding='utf-8') as f:
@@ -55,6 +57,9 @@ with open('C:\Work\Bachelor\KievVol\src\AppElements\AndroidApp\SidePanel.kv', en
 class MenuItem(Button):
     def __init__(self, **kwargs):
         super(MenuItem, self).__init__( **kwargs)
+        self.background_normal = ''
+        self.color = 0,0,0,1
+        self.background_color = 1,1,1,1
         self.bind(on_press=self.menuitem_selected)
 
     def menuitem_selected(self, *args):
@@ -94,18 +99,6 @@ class MainPanel(BoxLayout):
 class AppArea(FloatLayout):
     pass
 
-class NewsWidget(FloatLayout):
-    pass
-
-class FutureEvents(FloatLayout):
-    pass
-
-class EventCreatorWidget(FloatLayout):
-    pass
-
-class FeedbackWidget(FloatLayout):
-    pass
-
 class AppButton(Button):
     nome_bottone = ObjectProperty(None)
     def app_pushed(self):
@@ -132,39 +125,40 @@ class AndroidApp(App):
         global RootApp
         RootApp = self
         Window.size = (414,736)
-        self.session = SessionController()
         self.mainWindow = BoxLayout(orientation = 'vertical', spacing = 1)      #ОСнова
-        self.authController = AuthorizationController(self.mainWindow, self.session, self.authorizedCallback)              
-        self.mainWindow.add_widget(self.authController.authWindow)
+        self.authWorker = AuthorizationWorker(self.mainWindow, self.authorizedCallback)              
+        self.mainWindow.add_widget(self.authWorker.authWindow)
 
         return self.mainWindow
 
     def authorizedCallback(self):
+        self.main_panel = MainPanel()              
+        self.eventWorker = EventWorker()
+        self.newsWorker = NewsWorker()
+        self.feedbackWorker = FeedbackWorker()
         self.navigationdrawer = NavDrawer()        
-        self.main_panel = MainPanel()               #ПОТОМ УБРАТЬ ПОХОДУ
         side_panel = SidePanel()
         self.navigationdrawer.add_widget(side_panel)
         self.navigationdrawer.anim_type = 'slide_above_anim'
         self.navigationdrawer.add_widget(self.main_panel)
         self.mainWindow.add_widget(self.navigationdrawer)
 
-    def auth(self):
-        print("AUSUUSAUSUSU")
+        self.loadNewsWidget()
 
     def toggle_sidepanel(self):
         self.navigationdrawer.toggle_state()
 
     def loadNewsWidget(self):
-        self._switch_main_page('newsWidget', NewsWidget)
+        self.time_switch_main_page('Новини', self.newsWorker.newsWidget)
 
     def loadFutureEvents(self):
-        self._switch_main_page('futureEvents', FutureEvents)
+        self.time_switch_main_page('Події', self.eventWorker.eventListWorker.widget)
         
     def loadEventCreatorWidget(self):
-        self._switch_main_page('eventCreatorWidget',  EventCreatorWidget)
+        self.time_switch_main_page('Створити подію',  self.eventWorker.eventCreatorWidget)
 
     def loadFeedbackWidget(self):
-        self._switch_main_page('feedbackWidget', FeedbackWidget)
+        self.time_switch_main_page("Зворотній зв'язок", self.feedbackWorker.feedbackWidget)
 
     def exitApp(self):
         RootApp.stop()
@@ -174,7 +168,16 @@ class AndroidApp(App):
         if not SidePanel_AppMenu[key][id_AppMenu_PANEL]:
             SidePanel_AppMenu[key][id_AppMenu_PANEL] = panel()
         main_panel = SidePanel_AppMenu[key][id_AppMenu_PANEL]
-        self.navigationdrawer.remove_widget(self.main_panel)    # FACCIO REMOVE ED ADD perchè la set_main_panel
-        self.navigationdrawer.add_widget(main_panel)            # dà un'eccezione e non ho capito perchè
+        self.navigationdrawer.remove_widget(self.main_panel)    
+        self.navigationdrawer.add_widget(main_panel)            
+        self.main_panel = main_panel
+    
+    def time_switch_main_page(self, key,  panel):
+        self.navigationdrawer.close_sidepanel()
+        if not SidePanel_AppMenu[key][id_AppMenu_PANEL]:
+            SidePanel_AppMenu[key][id_AppMenu_PANEL] = panel
+        main_panel = SidePanel_AppMenu[key][id_AppMenu_PANEL]
+        self.navigationdrawer.remove_widget(self.main_panel)    
+        self.navigationdrawer.add_widget(main_panel)            
         self.main_panel = main_panel
 

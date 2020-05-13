@@ -1,0 +1,90 @@
+#:kivy 1.8.0
+
+<NewsWidget>:
+    orientation: 'vertical'
+
+    canvas.before:
+        Color:
+            rgba: 0.61,0.89,0.59,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    AppActionBar:
+        size_hint: (1., 0.1)
+    ScrollView:
+        GridLayout:
+            padding: [20, 10, 20, 10]
+            orientation: "vertical"
+            # rows: 6
+            cols: 1
+            spacing: 25
+            id: newsBox
+            height: self.minimum_height
+            size_hint_y: None
+            orientation: 'vertical'
+
+<News>:
+    orientation: 'vertical'
+    # height: 100
+    size_hint_y: None
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        # height: 35
+        size_hint_y: None
+        id: newsTitleBox
+        # size_hint: (1, 1/10)
+        canvas.before:
+            Color:
+                rgba: 0.03, 0.76, 0.53,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            color: 0, 0, 0, 1
+            text_size: self.width, None
+            text: 'Новость Агонь'
+            font_size: '25sp'
+            id: newsTitle
+            halign: 'center'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            color: 0, 0, 0, 1
+            padding_x: 5
+            text_size: self.width, None
+            text: 'Украли кота '
+            id: newsText
+            halign: 'left'
+            font_size: '20sp'
+    Widget:
+        id: separator1
+        size_hint_y: None
+        height: 6
+        canvas:
+            Color:
+                rgba: 0,0,0,1
+            Rectangle:
+                pos: 20, separator1.center_y
+                size: separator1.width, 2
+    BoxLayout:
+        orientation:'vertical'
+        size_hint_y: None
+        height: 25
+        Label:
+            id: newsTime
+            color: 0, 0, 0, 1
+            padding_x: 5
+            text_size: self.width, None
+            text: 'Час'
+            halign: 'right'
+            font_size: '20sp'
+
+
+

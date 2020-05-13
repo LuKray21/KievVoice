@@ -1,0 +1,300 @@
+#:kivy 1.8.0
+
+<AuthWindow>:
+    canvas.before:
+        Color:
+            rgba: 0.61,0.89,0.59,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    orientation: 'vertical'
+    spacing: 1
+    BoxLayout:
+        size_hint: (1, 1)
+        orientation: 'vertical'
+        BoxLayout:
+            size_hint: (1, 1)
+            id: authLabel
+            orientation: 'horizontal'
+            padding: [0,0,0,0]
+            Label:
+                size_hint: (1,1)
+                color: 0,0,0,1
+                text: 'Авторизація'
+                font_size: '30sp'
+        BoxLayout:
+            size_hint: (1, 1)
+            orientation: 'vertical'
+            color: 'red'
+            padding: [0,0,20,0]
+            # spacing: 15
+            BoxLayout:
+                size_hint: (1, 1)
+                id: 'loginLine'
+                orientation:'horizontal'
+                Label:
+                    size_hint: (.4, .4)
+                    color: 0,0,0,1
+                    text: 'Логін:'
+                    font_size: '20sp'
+
+                TextInput:
+                    id: login
+                    size_hint: (1, .4)
+                    text: ''
+                    font_size: '25sp'
+
+            BoxLayout:
+                size_hint: (1, 1)
+                id: 'passwordLine'
+                orientation:'horizontal'
+                Label:
+                    color: 0,0,0,1
+                    size_hint: (.4, .4)
+                    text: "Пароль:"
+                    font_size: '20sp'
+                TextInput:
+                    id: password
+                    size_hint: (1, .4)
+                    password: 'True'
+                    font_size: '25sp'
+                    # height: self.minimum_height
+
+        BoxLayout:
+            size_hint: (1, 1)
+            orientation: 'horizontal'
+            spacing: 2
+            padding: [2, 1, 2, 1]
+            Button:
+                size_hint: (.4, .4)
+                text:'Увійти'
+                on_release: app.authWorker.tryToAuthorize(login.text, password.text)
+                on_press: 
+                background_normal: ''
+                background_color: 0.24,0.60,0.27,1
+            Button:
+                size_hint: (.4, .4)
+                text:'Реестрація'
+                on_release: app.authWorker.setRegistrationWindow()
+                background_normal: ''
+                background_color: 0.24,0.60,0.27,1
+
+
+<RegistrationWindow>:
+    canvas.before:
+        Color:
+            rgba: 0.61,0.89,0.59,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: (1,1)
+        BoxLayout:
+            orientation:'vertical'
+            size_hint: (1, .1)
+            Label:
+                size_hint: (1, 1)
+                color: 0,0,0,1
+                text: 'Реестрація'
+                font_size: '30sp'
+        BoxLayout:
+            orientation:'vertical'
+            size_hint: (1, 1)
+            padding: [0, 0,20,15]
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,1)
+                Label: 
+                    color: 0,0,0,1
+                    size_hint: (.4, .6)
+                    text: 'Логін'
+                TextInput:
+                    id: login
+                    size_hint: (1, .6)
+                    font_size: '25sp'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,1)
+                Label: 
+                    size_hint: (.4, .6)
+                    color: 0,0,0,1
+                    text: 'Пароль'
+                TextInput:
+                    id: password
+                    size_hint: (1, .6)
+                    font_size: '25sp'
+                    password: 'True'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,1)
+                Label: 
+                    color: 0,0,0,1
+                    size_hint: (.4, .6)
+                    text: "Ім'я"
+                TextInput:
+                    size_hint: (1, .6)
+                    font_size: '25sp'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,1)
+                Label: 
+                    color: 0,0,0,1
+                    size_hint: (.4, .6)
+                    text: 'Прізвище'
+                TextInput:
+                    size_hint: (1, .6)
+                    font_size: '25sp'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,1)
+                Label: 
+                    color: 0,0,0,1
+                    size_hint: (.4, .6)
+                    text: 'Вік'
+                TextInput:
+                    size_hint: (1, .6)
+                    font_size: '25sp'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,1)
+                Label: 
+                    color: 0,0,0,1
+                    size_hint: (.4, .6)
+                    text: 'Email'
+                TextInput:
+                    size_hint: (1, .6)
+                    font_size: '25sp'
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1,1)
+                Label: 
+                    color: 0,0,0,1
+                    size_hint: (.4, .6)
+                    text: 'Район'
+                UserRegionDropDown:
+                    id: userRegion
+                    size_hint: (1, .6)
+                    font_size: '25sp'
+                    
+        BoxLayout:
+            spacing: 2
+            padding: [2, 15, 2, 1]
+            orientation: 'horizontal'
+            size_hint: (1,.2)
+            Button:
+                text: 'Назад'
+                on_release: app.authWorker.setAuthWindow()
+                background_normal: ''
+                background_color: 0.24,0.60,0.27,1
+            Button:
+                text: 'Зарееструватись'
+                on_release: app.authWorker.tryToRegister(login.text, password.text)
+                background_normal: ''
+                background_color: 0.24,0.60,0.27,1
+            
+
+<UserRegionDropDown>:
+    Button:
+        id: btn
+        text: 'Шевченківський'
+        on_release: dropdown.open(self)
+        size_hint_y: None
+        height: '58dp'
+        background_normal: ''
+        background_color: 0.24,0.60,0.27,1
+    DropDown:
+        id: dropdown
+        # on_parent: self.dismiss()
+        on_select: btn.text = '{}'.format(args[1])
+        Button:
+            text: 'Голосiївський'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Голосiївський')
+            on_release: app.authWorker.setUserRegion('Голосiївський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Дарницький'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Дарницький')
+            on_release: app.authWorker.setUserRegion('Дарницький')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Деснянський'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Деснянський')
+            on_release: app.authWorker.setUserRegion('Деснянський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Днiпровський'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Днiпровський')
+            on_release: app.authWorker.setUserRegion('Днiпровський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Оболонський'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Оболонський')
+            on_release: app.authWorker.setUserRegion('Оболонський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Печерський'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Печерський')
+            on_release: app.authWorker.setUserRegion('Печерський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Подiльський'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Подiльський')
+            on_release: app.authWorker.setUserRegion('Подiльський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Святошинський'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Святошинський')
+            on_release: app.authWorker.setUserRegion('Святошинський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: "Солом'янський"
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select("Солом'янський")
+            on_release: app.authWorker.setUserRegion("Солом'янський")
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: "Шевченківський"
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Шевченківський')
+            on_release: app.authWorker.setUserRegion('Шевченківський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+
+<GoodResultPage>:
+    BoxLayout:
+        orientation:'vertical'
+        Button:
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+            text: 'Ви успішно зареестровані'
+            font_size: '25sp'
+            on_release: app.authWorker.setAuthWindowAfReg()

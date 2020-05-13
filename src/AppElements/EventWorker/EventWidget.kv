@@ -1,0 +1,679 @@
+#:kivy 1.8.0
+
+<EventCreatorDescPage>:
+    canvas.before:
+        Color:
+            rgba: 0.61,0.89,0.59,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    orientation: 'vertical'
+    spacing: 1
+
+    AppActionBar:
+        size_hint: (1., 0.1)
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            padding: [20, 3, 20, 10]
+            size_hint: (1,1)
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: (1,.4)
+                Label:
+                    text: "Подія"
+                    font_size: '20sp'
+                    size_hint: (1, .4)
+                    halign: 'center'
+                TextInput:
+                    size_hint: (1, .4)
+                    font_size: '20sp'
+                    id: eventName
+                    multiline: 'False'
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: (1,1)
+                Label:
+                    text: "Опис"
+                    halign: 'center'
+                    size_hint: (1, .2)
+                    font_size: '20sp'
+                TextInput:
+                    id: eventDesc
+                    font_size: '20sp'
+                    size_hint: (1, .5)
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (1,.2)
+            padding: [1, 10, 1, 2]
+            Button:
+                text:'Далі'
+                on_release: app.eventWorker.setContactsPage(eventName.text, eventDesc.text)
+                on_press: print('ss')
+                background_normal: ''
+                background_color: 0.24,0.60,0.27,1
+                size_hint: (1, 1)
+            
+
+<MonthDropDown>:
+    Button:
+        id: btn
+        text: 'Січня'
+        on_release: dropdown.open(self)
+        size_hint_y: None
+        height: '58dp'
+        background_normal: ''
+        background_color: 0.24,0.60,0.27,1
+    DropDown:
+        id: dropdown
+        # on_parent: self.dismiss()
+        on_select: btn.text = '{}'.format(args[1])
+        Button:
+            text: 'Січня'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Січня')
+            on_release: app.eventWorker.setEventMonth('Січня')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Лютого'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Лютого')
+            on_release: app.eventWorker.setEventMonth('Лютого')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+
+        Button:
+            text: 'Березня'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Березня')
+            on_release: app.eventWorker.setEventMonth('Березня')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Квітня'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Квітня')
+            on_release: app.eventWorker.setEventMonth('Квітня')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Травня'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Травня')
+            on_release: app.eventWorker.setEventMonth('Травня')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Червня'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Червня')
+            on_release: app.eventWorker.setEventMonth('Червня')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Липня'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Липня')
+            on_release: app.eventWorker.setEventMonth('Липня')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Серпня'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Серпня')
+            on_release: app.eventWorker.setEventMonth('Серпня')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Вересня'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Вересня')
+            on_release: app.eventWorker.setEventMonth('Вересня')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Жовтня'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Жовтня')
+            on_release: app.eventWorker.setEventMonth('Жовтня')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Листопад'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Листопад')
+            on_release: app.eventWorker.setEventMonth('Листопад')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Грудень'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Грудень')
+            on_release: app.eventWorker.setEventMonth('Грудень')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+
+<RegionDropDown>:
+    Button:
+        id: btn
+        text: 'Шевченківський'
+        on_release: dropdown.open(self)
+        size_hint_y: None
+        height: '58dp'
+        background_normal: ''
+        background_color: 0.24,0.60,0.27,1
+    DropDown:
+        id: dropdown
+        # on_parent: self.dismiss()
+        on_select: btn.text = '{}'.format(args[1])
+        Button:
+            text: 'Голосiївський'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Голосiївський')
+            on_release: app.eventWorker.setEventRegion('Голосiївський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Дарницький'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Дарницький')
+            on_release: app.eventWorker.setEventRegion('Дарницький')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Деснянський'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Деснянський')
+            on_release: app.eventWorker.setEventRegion('Деснянський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Днiпровський'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Днiпровський')
+            on_release: app.eventWorker.setEventRegion('Днiпровський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Оболонський'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Оболонський')
+            on_release: app.eventWorker.setEventRegion('Оболонський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Печерський'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Печерський')
+            on_release: app.eventWorker.setEventRegion('Печерський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Подiльський'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Подiльський')
+            on_release: app.eventWorker.setEventRegion('Подiльський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: 'Святошинський'
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Святошинський')
+            on_release: app.eventWorker.setEventRegion('Святошинський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: "Солом'янський"
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select("Солом'янський")
+            on_release: app.eventWorker.setEventRegion("Солом'янський")
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+        Button:
+            text: "Шевченківський"
+            size_hint_y: None
+            height: '40dp'
+            on_release: dropdown.select('Шевченківський')
+            on_release: app.eventWorker.setEventRegion('Шевченківський')
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+
+
+
+<EventCreatorContactsPage>:
+    canvas.before:
+        Color:
+            rgba: 0.61,0.89,0.59,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    orientation: 'vertical'
+    spacing: 1
+
+    AppActionBar:
+        size_hint: (1., 0.1)
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [20, 3, 20, 10]
+        size_hint: (1,1)
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (1,1)
+            Label:
+                text: "Номер для зв'язку"
+                font_size: '20sp'
+                # size_hint_y: None
+                text_size: self.width, None
+                size_hint: (.4, .4)
+            TextInput:
+                size_hint: (1, .4)
+                font_size: '20sp'
+                id: eventPhone
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (1,1)
+            Label:
+                text: "Email"
+                font_size: '20sp'
+                size_hint: (.4, .4)
+            TextInput:
+                id: eventEmail
+                font_size: '20sp'
+                size_hint: (1, .4)
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (1,1)
+            Label:
+                text: "Адреса"
+                font_size: '20sp'
+                size_hint: (.4, .4)
+            TextInput:
+                id: eventAdress
+                font_size: '20sp'
+                size_hint: (1, .4)
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (1,1)
+            Label:
+                text: "Район"
+                font_size: '20sp'
+                size_hint: (.4, .4)
+            RegionDropDown:
+                id: eventRegion
+                font_size: '20sp'
+                size_hint: (1, .4)
+        BoxLayout:
+            spacing: 5
+            orientation: 'horizontal'
+            size_hint: (1,1)
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    text: "День"
+                    font_size: '20sp'
+                    size_hint: (.4, .4)
+                TextInput:
+                    id: eventDay
+                    font_size: '25sp'
+                    size_hint: (1, .4)
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    text: 'Місяць'
+                    font_size: '20sp'
+                    size_hint: (.4, .4)
+                MonthDropDown: 
+                    id: eventMonth
+                    font_size: '25sp'
+                    size_hint: (1, .4)
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    text: "Час"
+                    font_size: '20sp'
+                    size_hint: (.4, .4)
+                TextInput:
+                    id: eventTime
+                    font_size: '25sp'
+                    size_hint: (1, .4)
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: (1, .2)
+        padding: [1, 9, 1, 2]
+        spacing: 2
+        Button:
+            text: 'Назад'
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+            on_release: app.eventWorker.setDescPage()
+            on_press:
+
+        Button:
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+            text: 'Створити'
+            on_press: 
+            on_release: app.eventWorker.addEventToServerAndDevice(app.eventWorker.eventName,app.eventWorker.eventDesc, eventPhone.text, app.eventWorker.getEventRegion(), eventAdress.text, eventEmail.text, eventDay.text, app.eventWorker.getEventMonth(), eventTime.text)
+            
+<EventCreatorGoodResultPage>:
+    BoxLayout:
+        orientation:'vertical'
+        AppButton:
+            id: bottone
+            nome_bottone: bottone
+            background_normal: ''
+            background_color: 0.24,0.60,0.27,1
+            text: 'Подія успішно створена'
+            font_size: '25sp'
+            on_press: self.app_pushed()
+            on_release: app.eventWorker.closeGoodResultPage()
+
+<EventListWidget>:
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: 0.61,0.89,0.59,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        orientation: 'vertical'
+        AppActionBar:
+            size_hint: (1., 0.1)
+
+        ScrollView:
+            GridLayout:
+                padding: [20, 10, 20, 10]
+                orientation: "vertical"
+                # rows: 6
+                cols: 1
+                row_default_height: 100
+                spacing: 10
+                id: eventBox
+                height: self.minimum_height
+                size_hint_y: None
+
+                orientation: 'vertical'
+
+<Event>:
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        canvas.before:
+            Color:
+                rgba: 0.4,0.4,0.6, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        BoxLayout:
+            # size_hint_y: (1, 1)
+            orientation: 'vertical'
+            canvas.before:
+                Color:
+                    rgba: 0.5,0.4,0.5, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 
+                id: eventName
+                text_size: self.width, None
+                height: self.texture_size[1]
+                size: self.size
+                halign: 'center'
+        BoxLayout:
+            orientation:'horizontal'
+            Label:
+                id: eventDatetime
+                text_size: self.width, None
+                height: self.texture_size[1]
+                size: self.size
+                halign: 'center'
+            Label:
+                id: eventRegion
+                text_size: self.width, None
+                height: self.texture_size[1]
+                size: self.size
+                halign: 'center'
+
+<CurrentEventWidget>:
+    orientation: 'vertical'
+    AppActionBar:
+        size_hint: (1., 0.1)
+
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: 0.61,0.89,0.59,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        ScrollView:
+            GridLayout:
+                padding: [20, 10, 20, 10]
+                orientation: "vertical"
+                # rows: 6
+                cols: 1
+                height: self.minimum_height
+                size_hint_y: None
+                id: mainScrollWindow
+                orientation: 'vertical'
+                spacing: 5
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None 
+                    height: 40
+                    canvas.before:
+                        Color:
+                            rgba: 1,1,1,1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        color: 0.01, 0.01, 0.01, 1
+                        id: eventName
+                        text: 
+                        height: self.texture_size[1]
+                        size: self.size
+                        halign: 'center'
+                        font_size: '20sp'
+                        
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None 
+                    id: eventDescBox
+                    # height: self.minimum_height
+                    canvas.before:
+                        Color:
+                            rgba: 1,1,1,1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                    Label:
+                        id: eventDesc
+                        color: 0.01, 0.01, 0.01, 1
+                        text: 
+                        padding_x: 5
+                        font_size: '18sp'
+                        text_size: self.width, None
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: 50
+                    BoxLayout:
+                    BoxLayout:
+                        orientation:'vertical'
+                        Label:
+                            color: 0.01, 0.01, 0.01, 1
+                            id: eventDatetime
+                            font_size: '15sp'
+                            text: '25 березня 10:21'
+                Widget:
+                    id: separator1
+                    size_hint_y: None
+                    height: 6
+                    canvas:
+                        Color:
+                            rgba: 1,1,1,1
+                        Rectangle:
+                            pos: 20, separator1.center_y
+                            size: separator1.width, 2
+                BoxLayout:
+                    height: 130
+                    size_hint_y: None
+                    orientation: 'vertical'
+                    
+                    BoxLayout:
+                        orientation: 'vertical'
+                        Label:
+                            color: 0.01, 0.01, 0.01, 1
+                            text: 'Місце проведення'
+                            font_size: '20sp'
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        canvas.before:
+                            Color:
+                                rgba: 1,1,1,1
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                        Label:
+                            color: 0.01, 0.01, 0.01, 1
+                            id: eventRegionAndAdress
+                            text_size: self.width, None
+                            height: self.texture_size[1]
+                            size: self.size
+                            halign: 'center'
+                            text: 
+                            font_size: '17sp' 
+                BoxLayout:
+                    height: 130
+                    size_hint_y: None
+                    orientation: 'vertical'
+                    
+                    BoxLayout:
+                        orientation: 'vertical'
+                        Label:
+                            color: 0.01, 0.01, 0.01, 1
+                            text: 'Контактні дані'
+                            font_size: '20sp'
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        canvas.before:
+                            Color:
+                                rgba: 1,1,1,1
+                            RoundedRectangle:
+                                pos: self.pos
+                                size: self.size
+                        Label:
+                            color: 0.01, 0.01, 0.01, 1
+                            id: eventEmail
+                            text: 
+                            font_size: '17sp'
+
+                        Label:
+                            color: 0.01, 0.01, 0.01, 1
+                            id: eventPhone
+                            text: 
+                            font_size: '17sp'
+                Widget:
+                    id: separator2
+                    size_hint_y: None
+                    height: 20
+                    canvas:
+                        Color:
+                            rgba: 1,1,1,1
+                        Rectangle:
+                            pos: 20, separator2.center_y
+                            size: separator2.width, 2
+                BoxLayout:
+                    orientation: 'vertical'
+                    height: 60
+                    size_hint_y: None
+                    TextInput:
+                        id: eventCommentInput
+                        text: 'Коментар'
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: 30
+                    BoxLayout:
+                    BoxLayout: 
+                    BoxLayout:
+                        orientation: 'vertical'
+                        Button:
+                            background_normal: ''
+                            background_color: 0.24,0.60,0.27,1
+                            id: commentButton
+                            text: 'Відправити'
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: 20
+
+                GridLayout:
+                    orientation: "vertical"
+                    cols: 1
+                    row_default_height: 50
+                    spacing: 5
+                    id: eventCommentBox
+                    height: self.minimum_height
+                    size_hint_y: None
+                    canvas.before:
+                        Color:
+                            rgba: 1,1,1,1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                    
+                    
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: (1,.1)
+            orientation: 'vertical'
+            BoxLayout:
+                size_hint: (1, 1)
+                orientation: 'horizontal'
+                AppButton:
+                    text: 'Назад'
+                    id: backButton
+                    nome_bottone: backButton
+                    background_normal: ''
+                    background_color: 0.24,0.60,0.27,1
+                    on_press: self.app_pushed()
+                    on_release: app.eventWorker.eventListWorker.setEventListWidget()
+                AppButton:
+                    text: 'Записатись'
+                    id: participant
+                    nome_bottone: participant
+
+                    background_normal: ''
+                    background_color: 0.24,0.60,0.27,1
+                    on_press: self.app_pushed()
+
+
+        

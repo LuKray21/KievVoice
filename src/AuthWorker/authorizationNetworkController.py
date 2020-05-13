@@ -4,6 +4,7 @@ class authorizationNetworkController():
         self.endRegistrationCallback = endRegistrationCallback
 
     def register(self, login, password):
+        print('РЕГИСТРУЮСЬ')
         self.endRegistrationCallback()
 
     def authorize(self, login, password):

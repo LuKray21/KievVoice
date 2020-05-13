@@ -1,90 +1,56 @@
 #:kivy 1.8.0
 
 <SidePanel>:
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        Rectangle:
+            pos: self.pos
+            size: self.size
     orientation: 'vertical'
     spacing: 1
     BoxLayout:
+        canvas.before:
+            Color:
+                rgba: 0.39,0.60,0.78,1
+            Rectangle:
+                pos: self.pos
+                size: self.size
         orientation: 'vertical'
         Label:
-            text: 'UserName'
-            font_size: '30sp'
+            text: "Рогальський Михайло"
+            color: 0, 0, 0, 1
+            text_size: self.width, None
+            height: self.texture_size[1]
+            size: self.size
+            halign: 'center'
             size_hint: 1, 0.2
-
         Button:
-            text:'Profile button'
-            on_press: app.auth()
+            background_normal: ''
+            background_color: 1,1,1,1
+            color: 0, 0, 0, 1
+            text:'Профіль'
+            # on_press: 
             size_hint: 1, 0.2
-            # ButtonBehavior: 
-                # source: 'C:/Work/Bachelor/KievVol/Data/images/user.png'
-                # size: 32, 32
-                # size_hint: (None,None)
-                # pos_hint: {"x":0.3, "top":0.7}
 
     MenuItem:
-        text: 'newsWidget'
+        text: 'Новини'
         size_hint: 1, 1
 
     MenuItem:
-        text: 'futureEvents'
+        text: 'Події'
         size_hint: 1, 1
 
     MenuItem:
-        text: 'eventCreatorWidget'
+        text: 'Створити подію'
         size_hint: 1, 1
     
-
     MenuItem:
-        text: 'feedbackWidget'
+        text: "Зворотній зв'язок"
         size_hint: 1, 1
 
     MenuItem:
-        text: 'Exit'
+        text: 'Вихід'
         size_hint: 1, 0.5
-    
 
-<NewsWidget>:
-    orientation: 'vertical'
-    spacing: 1
-
-    AppActionBar:
-        size_hint: (1., 0.1)
-    BoxLayout:
-        orientation:'vertical'
-        BoxLayout:
-            orientation:'vertical'
-            Label:
-                text: 'HELLPLP'
-        BoxLayout:
-            orientation: 'vertical'
-            Label:
-                text: 'HAUHI'
-
-<FutureEvents>:
-    orientation: 'vertical'
-    spacing: 1
-
-    AppActionBar:
-        size_hint: (1., 0.1)
-
-    Label:
-        text: 'TEXT'
-
-<EventCreatorWidget>:
-    orientation: 'vertical'
-    spacing: 1
-
-    AppActionBar:
-        size_hint: (1., 0.1)
-
-    Label:
-        text: 'CHiriku'
-
-<FeedbackWidget>:
-    orientation: 'vertical'
-    spacing: 1
-
-    AppActionBar:
-        size_hint: (1., 0.1)
-    Label:
-        text: 'HAYKA'
 

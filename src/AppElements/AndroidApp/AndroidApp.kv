@@ -5,14 +5,17 @@
     ActionView:
         use_separator: True
         ActionMenu:
+            canvas.before:
+                Color:
+                    rgba: 0.39,0.60,0.78,1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
             title: '       VVKiev'
             with_previous: False
             app_icon: 'atlas://data/images/defaulttheme/splitter_grip'
             on_press: self.menu()
-            
         ActionOverflow:
-
-
 
 <MainPanel>:
     orientation: 'vertical'
