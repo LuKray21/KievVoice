@@ -54,7 +54,7 @@ from src.AppElements.Settings.SettingsWorker import SettingsWorker
 from src.AppElements.Profile.ProfileWorker import ProfileWorker
 
 Config.set('graphics', 'resizable', False)
-with open('C:\Work\Bachelor\KievVol\src\AppElements\AndroidApp\SidePanel.kv', encoding='utf-8') as f:
+with open('KievVol\src\AppElements\AndroidApp\SidePanel.kv', encoding='utf-8') as f:
     presentation = Builder.load_string(f.read())
 
 class MenuItem(Button):

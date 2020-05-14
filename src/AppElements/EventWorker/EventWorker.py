@@ -7,7 +7,7 @@ from kivy.uix.button import Button
 
 from .utils import getConstructedTimeFormat, getcurrentTimestamp, getTimeFromTimestamp
 
-with open('C:\Work\Bachelor\KievVol\src\AppElements\EventWorker\EventWidget.kv', encoding='utf-8') as f:
+with open('KievVol\src\AppElements\EventWorker\EventWidget.kv', encoding='utf-8') as f:
     presentation = Builder.load_string(f.read())
 
 class EventWorker():

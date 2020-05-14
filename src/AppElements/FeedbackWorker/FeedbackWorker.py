@@ -1,7 +1,7 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang.builder import Builder
 
-with open('C:\Work\Bachelor\KievVol\src\AppElements\FeedbackWorker\FeedbackWidget.kv', encoding='utf-8') as f:
+with open('KievVol\src\AppElements\FeedbackWorker\FeedbackWidget.kv', encoding='utf-8') as f:
     presentation = Builder.load_string(f.read())
 
 goodStatusText = 'Звернення відправлено'

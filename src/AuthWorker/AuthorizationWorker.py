@@ -3,7 +3,7 @@ from kivy.uix.boxlayout import BoxLayout
 from .authorizationNetworkController import authorizationNetworkController
 from kivy.lang import Builder 
 
-with open('C:\Work\Bachelor\KievVol\src\AuthWorker\AuthorizationWidget.kv', encoding='utf-8') as f:
+with open('KievVol\src\AuthWorker\AuthorizationWidget.kv', encoding='utf-8') as f:
     presentation = Builder.load_string(f.read())
 
 class AuthorizationWorker():
