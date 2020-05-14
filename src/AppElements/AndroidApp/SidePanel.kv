@@ -19,19 +19,16 @@
         orientation: 'vertical'
         Label:
             text: "Рогальський Михайло"
-            color: 0, 0, 0, 1
+            color: 1,1,1,1
             text_size: self.width, None
             height: self.texture_size[1]
             size: self.size
             halign: 'center'
             size_hint: 1, 0.2
-        Button:
-            background_normal: ''
-            background_color: 1,1,1,1
-            color: 0, 0, 0, 1
-            text:'Профіль'
-            # on_press: 
-            size_hint: 1, 0.2
+
+    MenuItem:
+        text: 'Профіль'
+        size_himt: 1, 1
 
     MenuItem:
         text: 'Новини'

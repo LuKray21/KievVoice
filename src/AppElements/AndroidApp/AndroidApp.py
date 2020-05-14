@@ -20,7 +20,8 @@ __author__ = 'licia'
 and methods that actually implement the specific function and panels to be
 shown instead of the first main_panel
 '''
-SidePanel_AppMenu = {'Новини':['loadNewsWidget',None],
+SidePanel_AppMenu = {'Профіль': ['loadProfileWidget', None],
+                     'Новини':['loadNewsWidget',None],
                      'Події':['loadFutureEvents',None],
                      'Створити подію':['loadEventCreatorWidget',None],
                      "Зворотній зв'язок":['loadFeedbackWidget', None],
@@ -49,6 +50,8 @@ from src.AuthWorker.AuthorizationWorker import AuthorizationWorker
 from src.AppElements.NewsWorker.NewsWorker import NewsWorker
 from src.AppElements.EventWorker.EventWorker import EventWorker
 from src.AppElements.FeedbackWorker.FeedbackWorker import FeedbackWorker
+from src.AppElements.Settings.SettingsWorker import SettingsWorker
+from src.AppElements.Profile.ProfileWorker import ProfileWorker
 
 Config.set('graphics', 'resizable', False)
 with open('C:\Work\Bachelor\KievVol\src\AppElements\AndroidApp\SidePanel.kv', encoding='utf-8') as f:
@@ -118,6 +121,20 @@ class NavDrawer(NavigationDrawer):
             else:
                 self.state = 'closed'
 
+class ResultWidget(BoxLayout):
+    def __init__(self):
+        super(ResultWidget, self).__init__()
+        self.ids.resultButton.background_normal = ''
+
+    def setResultText(self, text):
+        self.ids.resultButton.text = text
+    
+    def setResultColor(self, color):
+        self.ids.resultButton.background_color = color
+
+    def setFunc(self, func):
+        self.ids.resultButton.bind(on_release=func)
+
 
 class AndroidApp(App):
 
@@ -129,13 +146,17 @@ class AndroidApp(App):
         self.authWorker = AuthorizationWorker(self.mainWindow, self.authorizedCallback)              
         self.mainWindow.add_widget(self.authWorker.authWindow)
 
+        self.resultWidget = ResultWidget()
+
         return self.mainWindow
 
     def authorizedCallback(self):
         self.main_panel = MainPanel()              
         self.eventWorker = EventWorker()
         self.newsWorker = NewsWorker()
-        self.feedbackWorker = FeedbackWorker()
+        self.profileWorker = ProfileWorker(self)
+        self.settingsWorker = SettingsWorker()
+        self.feedbackWorker = FeedbackWorker(self)
         self.navigationdrawer = NavDrawer()        
         side_panel = SidePanel()
         self.navigationdrawer.add_widget(side_panel)
@@ -144,6 +165,12 @@ class AndroidApp(App):
         self.mainWindow.add_widget(self.navigationdrawer)
 
         self.loadNewsWidget()
+
+    def setResultWidget(self, widget, text, color, func):
+        widget.add_widget(self.resultWidget)
+        self.resultWidget.setResultText(text)
+        self.resultWidget.setResultColor(color)
+        self.resultWidget.setFunc(func)
 
     def toggle_sidepanel(self):
         self.navigationdrawer.toggle_state()
@@ -160,17 +187,11 @@ class AndroidApp(App):
     def loadFeedbackWidget(self):
         self.time_switch_main_page("Зворотній зв'язок", self.feedbackWorker.feedbackWidget)
 
+    def loadProfileWidget(self):
+        self.time_switch_main_page("Профіль", self.profileWorker.profileWidget)
+
     def exitApp(self):
         RootApp.stop()
-
-    def _switch_main_page(self, key,  panel):
-        self.navigationdrawer.close_sidepanel()
-        if not SidePanel_AppMenu[key][id_AppMenu_PANEL]:
-            SidePanel_AppMenu[key][id_AppMenu_PANEL] = panel()
-        main_panel = SidePanel_AppMenu[key][id_AppMenu_PANEL]
-        self.navigationdrawer.remove_widget(self.main_panel)    
-        self.navigationdrawer.add_widget(main_panel)            
-        self.main_panel = main_panel
     
     def time_switch_main_page(self, key,  panel):
         self.navigationdrawer.close_sidepanel()

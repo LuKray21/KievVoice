@@ -26,6 +26,7 @@
                     font_size: '20sp'
                     size_hint: (1, .4)
                     halign: 'center'
+                    color: 0, 0, 0, 1
                 TextInput:
                     size_hint: (1, .4)
                     font_size: '20sp'
@@ -39,6 +40,7 @@
                     halign: 'center'
                     size_hint: (1, .2)
                     font_size: '20sp'
+                    color: 0, 0, 0, 1
                 TextInput:
                     id: eventDesc
                     font_size: '20sp'
@@ -289,6 +291,7 @@
                 # size_hint_y: None
                 text_size: self.width, None
                 size_hint: (.4, .4)
+                color: 0, 0, 0, 1
             TextInput:
                 size_hint: (1, .4)
                 font_size: '20sp'
@@ -300,6 +303,7 @@
                 text: "Email"
                 font_size: '20sp'
                 size_hint: (.4, .4)
+                color: 0, 0, 0, 1
             TextInput:
                 id: eventEmail
                 font_size: '20sp'
@@ -311,6 +315,7 @@
                 text: "Адреса"
                 font_size: '20sp'
                 size_hint: (.4, .4)
+                color: 0, 0, 0, 1
             TextInput:
                 id: eventAdress
                 font_size: '20sp'
@@ -322,6 +327,7 @@
                 text: "Район"
                 font_size: '20sp'
                 size_hint: (.4, .4)
+                color: 0, 0, 0, 1
             RegionDropDown:
                 id: eventRegion
                 font_size: '20sp'
@@ -336,6 +342,7 @@
                     text: "День"
                     font_size: '20sp'
                     size_hint: (.4, .4)
+                    color: 0, 0, 0, 1
                 TextInput:
                     id: eventDay
                     font_size: '25sp'
@@ -346,6 +353,7 @@
                     text: 'Місяць'
                     font_size: '20sp'
                     size_hint: (.4, .4)
+                    color: 0, 0, 0, 1
                 MonthDropDown: 
                     id: eventMonth
                     font_size: '25sp'
@@ -356,6 +364,7 @@
                     text: "Час"
                     font_size: '20sp'
                     size_hint: (.4, .4)
+                    color: 0, 0, 0, 1
                 TextInput:
                     id: eventTime
                     font_size: '25sp'
@@ -424,7 +433,7 @@
         size_hint_y: None
         canvas.before:
             Color:
-                rgba: 0.4,0.4,0.6, 1
+                rgba: 1,1,1, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -433,7 +442,7 @@
             orientation: 'vertical'
             canvas.before:
                 Color:
-                    rgba: 0.5,0.4,0.5, 1
+                    rgba: 0.03, 0.76, 0.53,1
                 Rectangle:
                     pos: self.pos
                     size: self.size
@@ -448,12 +457,14 @@
             orientation:'horizontal'
             Label:
                 id: eventDatetime
+                color: 0,0,0,1
                 text_size: self.width, None
                 height: self.texture_size[1]
                 size: self.size
                 halign: 'center'
             Label:
                 id: eventRegion
+                color: 0,0,0,1
                 text_size: self.width, None
                 height: self.texture_size[1]
                 size: self.size
@@ -582,24 +593,35 @@
                             text: 'Контактні дані'
                             font_size: '20sp'
                     BoxLayout:
-                        orientation: 'horizontal'
+                        orientation: 'vertical'
                         canvas.before:
                             Color:
                                 rgba: 1,1,1,1
                             RoundedRectangle:
                                 pos: self.pos
                                 size: self.size
-                        Label:
-                            color: 0.01, 0.01, 0.01, 1
-                            id: eventEmail
-                            text: 
-                            font_size: '17sp'
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            Label:
+                                color: 0.01, 0.01, 0.01, 1
+                                id: eventFullName
+                                text: 
+                                font_size: '17sp'
+                                halign: 'center'
 
-                        Label:
-                            color: 0.01, 0.01, 0.01, 1
-                            id: eventPhone
-                            text: 
-                            font_size: '17sp'
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            Label:
+                                color: 0.01, 0.01, 0.01, 1
+                                id: eventEmail
+                                text: 
+                                font_size: '17sp'
+
+                            Label:
+                                color: 0.01, 0.01, 0.01, 1
+                                id: eventPhone
+                                text: 
+                                font_size: '17sp'
                 Widget:
                     id: separator2
                     size_hint_y: None

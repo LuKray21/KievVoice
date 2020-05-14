@@ -1,6 +1,6 @@
 #:kivy 1.8.0
 
-<FeedbackWidget>:
+<FeedbackFormWidget>:
     canvas.before:
         Color:
             rgba: 0.61,0.89,0.59,1
@@ -23,6 +23,7 @@
                 size_hint: (1,.4)
                 Label:
                     text: "Тема"
+                    color: 0, 0, 0, 1
                     font_size: '20sp'
                     size_hint: (1, .4)
                     halign: 'center'
@@ -35,6 +36,7 @@
                 orientation: 'vertical'
                 size_hint: (1,.4)
                 Label:
+                    color: 0, 0, 0, 1
                     text: "Email для відповіді"
                     halign: 'center'
                     size_hint: (1, .4)
@@ -47,6 +49,7 @@
                 orientation: 'vertical'
                 size_hint: (1,1)
                 Label:
+                    color: 0, 0, 0, 1
                     text: "Звернення"
                     halign: 'center'
                     size_hint: (1, .2)
@@ -66,4 +69,3 @@
                 background_color: 0.24,0.60,0.27,1
                 on_release: app.feedbackWorker.createNewFeedback(feedbackTitle.text, feedbackEmail.text, feedbackText.text)
                 size_hint: (1, 1)
-            

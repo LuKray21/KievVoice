@@ -5,7 +5,7 @@ from kivy.uix.label import Label
 from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
 
-from .utils import getConstructedTimeFormat
+from .utils import getConstructedTimeFormat, getcurrentTimestamp, getTimeFromTimestamp
 
 with open('C:\Work\Bachelor\KievVol\src\AppElements\EventWorker\EventWidget.kv', encoding='utf-8') as f:
     presentation = Builder.load_string(f.read())
@@ -164,9 +164,10 @@ class CurrentEventWidget(BoxLayout):
         self.month = month
         self.time = time
 
+        self.ids.eventFullName.text = self.userName + ' ' + self.userSurname
         self.ids.eventName.text = self.name
         self.ids.eventDesc.text = self.desc
-        self.ids.eventDescBox.height = (len(self.desc)/40)*35
+        self.ids.eventDescBox.height = (len(self.desc)/40)*37
         self.ids.eventDatetime.text = getConstructedTimeFormat(self.day, self.month, self.time)
         self.ids.eventRegionAndAdress.text = self.getConstructedAddress(self.region, self.address)
         self.ids.eventEmail.text = self.email
@@ -184,7 +185,7 @@ class CurrentEventWidget(BoxLayout):
     def commentButtonClicked(self):
 
         commentId = '0'                         #генерувати коли буду отправляти на сервер
-        self.timestamp = 'timespamp'   #генерувати коли буду отправляти на сервер
+        self.timestamp = getcurrentTimestamp()            #генерувати коли буду отправляти на сервер
         self.comment = EventComment(commentId, self.userLogin, self.userName, self.userSurname, self.ids.eventCommentInput.text, self.timestamp)
         self.ids.eventCommentBox.add_widget(self.comment)
         
@@ -202,6 +203,6 @@ class EventComment(Label):
         self.userSurname = userSurname
         self.text = text
         self.timestamp = timestamp
+        self.time = getTimeFromTimestamp(self.timestamp)
 
-        self.text = str(self.userName) + ' ' + str(self.userSurname) + ': ' + str(text)
-        
+        self.text = str(self.time) + ': ' + str(self.userName) + ' ' + str(self.userSurname) + ': ' + str(text)
