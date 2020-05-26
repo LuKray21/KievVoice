@@ -1,7 +1,7 @@
 from kivy.lang.builder import Builder
 from kivy.uix.boxlayout import BoxLayout
 
-with open('KievVol\src\AppElements\Settings\SettingsWidget.kv', encoding='utf-8') as f:
+with open('src/AppElements/Settings/SettingsWidget.kv', encoding='utf-8') as f:
     presentation = Builder.load_string(f.read())
 
 class SettingsWorker():

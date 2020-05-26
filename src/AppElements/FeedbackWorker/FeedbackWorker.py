@@ -1,7 +1,7 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang.builder import Builder
 
-with open('KievVol\src\AppElements\FeedbackWorker\FeedbackWidget.kv', encoding='utf-8') as f:
+with open('src/AppElements/FeedbackWorker/FeedbackWidget.kv', encoding='utf-8') as f:
     presentation = Builder.load_string(f.read())
 
 goodStatusText = 'Звернення відправлено'
@@ -24,10 +24,11 @@ class FeedbackWorker():
         else:
             self.androidApp.setResultWidget(self.feedbackWidget, badStatusText, (0.87, 0.31, 0.31, 1), self.setFeedbackWidget)
             
-    def setFeedbackWidget(self, d):
-        print(d)
-        self.feedbackWidget.remove_widget(self.androidApp.resultWidget)
-        self.feedbackWidget.add_widget(self.feedbackFormWidget)
+    def setFeedbackWidget(self):
+        try:
+            self.feedbackWidget.add_widget(self.feedbackFormWidget)
+        except Exception as err:
+            print(err)
 
 class FeedbackResultWidget(BoxLayout):
     def __init__(self, ):

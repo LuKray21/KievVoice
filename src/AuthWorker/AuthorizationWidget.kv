@@ -134,6 +134,7 @@
                     size_hint: (.4, .6)
                     text: "Ім'я"
                 TextInput:
+                    id: name
                     size_hint: (1, .6)
                     font_size: '25sp'
             BoxLayout:
@@ -144,6 +145,7 @@
                     size_hint: (.4, .6)
                     text: 'Прізвище'
                 TextInput:
+                    id: surname
                     size_hint: (1, .6)
                     font_size: '25sp'
             BoxLayout:
@@ -154,6 +156,7 @@
                     size_hint: (.4, .6)
                     text: 'Вік'
                 TextInput:
+                    id: age
                     size_hint: (1, .6)
                     font_size: '25sp'
             BoxLayout:
@@ -164,6 +167,7 @@
                     size_hint: (.4, .6)
                     text: 'Email'
                 TextInput:
+                    id: email
                     size_hint: (1, .6)
                     font_size: '25sp'
             BoxLayout:
@@ -174,6 +178,7 @@
                     size_hint: (.4, .6)
                     text: 'Мобільний'
                 TextInput:
+                    id: phone
                     size_hint: (1, .6)
                     font_size: '25sp'
             BoxLayout:
@@ -195,12 +200,13 @@
             size_hint: (1,.2)
             Button:
                 text: 'Назад'
+                on_release: app.authWorker.authRegWindow.remove_widget(app.authWorker.registWindow)
                 on_release: app.authWorker.setAuthWindow()
                 background_normal: ''
                 background_color: 0.24,0.60,0.27,1
             Button:
                 text: 'Зарееструватись'
-                on_release: app.authWorker.tryToRegister(login.text, password.text)
+                on_release: app.authWorker.tryToRegister(login.text, password.text, surname.text, app.authWorker.userRegion, age.text, phone.text, email.text, password.text)
                 background_normal: ''
                 background_color: 0.24,0.60,0.27,1
             
@@ -298,13 +304,3 @@
             on_release: app.authWorker.setUserRegion('Шевченківський')
             background_normal: ''
             background_color: 0.24,0.60,0.27,1
-
-<GoodResultPage>:
-    BoxLayout:
-        orientation:'vertical'
-        Button:
-            background_normal: ''
-            background_color: 0.24,0.60,0.27,1
-            text: 'Ви успішно зареестровані'
-            font_size: '25sp'
-            on_release: app.authWorker.setAuthWindowAfReg()

@@ -1,7 +1,7 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang.builder import Builder
 
-with open('KievVol\src\AppElements\Profile\ProfileWidget.kv', encoding='utf-8') as f:
+with open('src/AppElements/Profile/ProfileWidget.kv', encoding='utf-8') as f:
     presentation = Builder.load_string(f.read())
 
 class ProfileWorker():
@@ -12,7 +12,7 @@ class ProfileWorker():
         self.profileMainWidget = ProfileMainWidget()
 
         self.profileWidget.add_widget(self.profileMainWidget)
-        profileRegion = "Шевченківський"
+        self.profileRegion = "Шевченківський"
     
     def setProfileRegion(self, region):
         self.profileRegion = region
@@ -26,7 +26,7 @@ class ProfileWorker():
         if result:
             self.androidApp.setResultWidget(self.profileWidget, 'Дані оновлено', (0.24,0.60,0.27,1), self.setProfileWidget)
         else:
-            self.androidApp.setResultWidget(self.profileWidget, "Сталася помилка\n   Спробуйте пізніше", (0.87, 0.31, 0.31, 1), self.setFeedbackWidget)
+            self.androidApp.setResultWidget(self.profileWidget, "Сталася помилка\n   Спробуйте пізніше", (0.87, 0.31, 0.31, 1), self.setProfileWidget)
             
     def updatePassword(self, oldPassword, newPassword):
         result = True
@@ -36,10 +36,12 @@ class ProfileWorker():
         else:
             self.androidApp.setResultWidget(self.profileWidget, "Сталася помилка\n   Спробуйте пізніше", (0.87, 0.31, 0.31, 1), self.setProfileWidget)
 
-    def setProfileWidget(self, d):
-        self.profileWidget.remove_widget(self.androidApp.resultWidget)
-        self.profileWidget.add_widget(self.profileMainWidget)
-
+    def setProfileWidget(self):
+        try:
+            self.profileWidget.add_widget(self.profileMainWidget)
+        except Exception as err:
+            print(err)
+            
 class ProfileMainWidget(BoxLayout):
     def __init__(self):
         super(ProfileMainWidget, self).__init__()

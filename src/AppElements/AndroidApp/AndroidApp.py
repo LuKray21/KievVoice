@@ -33,6 +33,7 @@ id_AppMenu_PANEL = 1
 
 #--------------------------------------------------------------------------
 import kivy
+import json
 kivy.require('1.8.0')
 
 from kivy.app import App
@@ -46,6 +47,7 @@ from kivy.config import Config
 from kivy.core.window import Window
 from kivy.lang import Builder 
 
+from src.NetworkController.HttpWorker import HttpWorker
 from src.AuthWorker.AuthorizationWorker import AuthorizationWorker
 from src.AppElements.NewsWorker.NewsWorker import NewsWorker
 from src.AppElements.EventWorker.EventWorker import EventWorker
@@ -54,7 +56,9 @@ from src.AppElements.Settings.SettingsWorker import SettingsWorker
 from src.AppElements.Profile.ProfileWorker import ProfileWorker
 
 Config.set('graphics', 'resizable', False)
-with open('KievVol\src\AppElements\AndroidApp\SidePanel.kv', encoding='utf-8') as f:
+with open('src/AppElements/AndroidApp/SidePanel.kv', encoding='utf-8') as f:
+    presentation = Builder.load_string(f.read())
+with open('src/AppElements/AndroidApp/AndroidApp.kv', encoding='utf-8') as f:
     presentation = Builder.load_string(f.read())
 
 class MenuItem(Button):
@@ -132,27 +136,36 @@ class ResultWidget(BoxLayout):
     def setResultColor(self, color):
         self.ids.resultButton.background_color = color
 
-    def setFunc(self, func):
-        self.ids.resultButton.bind(on_release=func)
-
-
+    def setFunc(self, func, widget, resultWidget):
+        self.ids.resultButton.bind(on_release=lambda x: self.clickedResult(func,resultWidget, widget))
+    
+    def clickedResult(self, func, resultWidget, widget):
+        widget.remove_widget(resultWidget)
+        func()
+        
 class AndroidApp(App):
 
     def build(self):
         global RootApp
+        self.networkWorker = HttpWorker()
         RootApp = self
         Window.size = (414,736)
         self.mainWindow = BoxLayout(orientation = 'vertical', spacing = 1)      #ОСнова
-        self.authWorker = AuthorizationWorker(self.mainWindow, self.authorizedCallback)              
-        self.mainWindow.add_widget(self.authWorker.authWindow)
+        self.authWorker = AuthorizationWorker(self, self.authorizedCallback)              
+        self.mainWindow.add_widget(self.authWorker.authRegWindow)
 
         self.resultWidget = ResultWidget()
 
         return self.mainWindow
 
-    def authorizedCallback(self):
+    def authorizedCallback(self, userData):
+        self.userData = json.loads(userData)
+        self.userId = self.userData.get('id')
+        self.userName = self.userData.get('name')
+        self.login = self.userData.get('login')
+
         self.main_panel = MainPanel()              
-        self.eventWorker = EventWorker()
+        self.eventWorker = EventWorker(self)
         self.newsWorker = NewsWorker()
         self.profileWorker = ProfileWorker(self)
         self.settingsWorker = SettingsWorker()
@@ -162,6 +175,7 @@ class AndroidApp(App):
         self.navigationdrawer.add_widget(side_panel)
         self.navigationdrawer.anim_type = 'slide_above_anim'
         self.navigationdrawer.add_widget(self.main_panel)
+        self.mainWindow.remove_widget(self.authWorker.authRegWindow)
         self.mainWindow.add_widget(self.navigationdrawer)
 
         self.loadNewsWidget()
@@ -170,7 +184,7 @@ class AndroidApp(App):
         widget.add_widget(self.resultWidget)
         self.resultWidget.setResultText(text)
         self.resultWidget.setResultColor(color)
-        self.resultWidget.setFunc(func)
+        self.resultWidget.setFunc(func, widget, self.resultWidget)
 
     def toggle_sidepanel(self):
         self.navigationdrawer.toggle_state()
